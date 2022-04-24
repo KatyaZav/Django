@@ -1,0 +1,15 @@
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    {% extends "navigation.html" %}
+    {%block content%}
+        {% for pet in pets %}
+            <h1>{{pet.name}}</h1>
+            <div><b>Животное: </b>{{pet.animal}}</div>
+            <div><b>Возраст:</b> {{pet.age}}</div>
+        {% endfor %}
+    {%endblock%}
+</body>
+</html>

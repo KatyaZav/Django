@@ -1,0 +1,12 @@
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <form action="{% url 'add_note' %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Добавить заметку</button>
+    </form>
+</body>
+</html>
