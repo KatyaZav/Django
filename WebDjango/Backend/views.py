@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 
 from django.http import HttpResponse
 
-@login_required
+#@login_required
 def register(request): 
     if request.method == 'POST': 
         form = UserForm(request.POST) 
@@ -21,8 +21,8 @@ def register(request):
     form = UserForm() 
     return render(request, 'register.html', {'form': form})
 
-"""def index(request):
-    return HttpResponse('index page')"""
+def index(request):
+    return HttpResponse('index page')
 
 def user_login(request): 
     form = UserForm()
