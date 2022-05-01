@@ -3,6 +3,9 @@ from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm
+from django.shortcuts import redirect
+
+from django.http import HttpResponse
 
 @login_required
 def register(request): 
@@ -19,7 +22,7 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 def index(request):
-    return HTTPResponse('index')
+    return HttpResponse('index page')
 
 def user_login(request): 
     form = UserForm()
