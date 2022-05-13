@@ -5,7 +5,15 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserForm
 from django.shortcuts import redirect
 
+from rest_framework.decorators import api_view
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse('index page')
 
 #@login_required
 def register(request): 
@@ -18,11 +26,9 @@ def register(request):
 
         return render(request, 'register.html', {'form': form}) 
      
-    form = UserForm() 
+    form = UserForm()
     return render(request, 'register.html', {'form': form})
 
-def index(request):
-    return HttpResponse('index page')
 
 def user_login(request): 
     form = UserForm()
