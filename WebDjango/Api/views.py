@@ -6,6 +6,10 @@ from rest_framework.response import Response
 from .serializers import NoteSerializer
 from .models import Note
 
+from django.contrib.auth import login
+from django.shortcuts import redirect
+from Backend.forms import UserForm
+
 class Register(APIView):
     def get(self, request):
         form = UserForm()
