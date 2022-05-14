@@ -3,11 +3,14 @@ from rest_framework.decorators import api_view
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from .serializers import NoteSerializer
+from .models import Note
 
 class Register(APIView):
     def get(self, request):
         form = UserForm()
         return render(request, 'register.html', {'form': form})
+
     def post(self, request):
         form = UserForm(request.POST) 
         if form.is_valid(): 
@@ -19,18 +22,16 @@ class Register(APIView):
 
 class NoteView(APIView):
     def get(self, request):
-        id = request.query_params.get("id") # Получение id из параметров запроса
+        id = request.query_params.get("id")
         if id:
-            note = Note.objects.get(pk=id) # Получаем заметку
-            return Response({
-                "id": note.id, 
-                "title": note.title, 
-                "text": note.text
-            })
-        # Если в запросе нет параметра id, возвращаем все заметки
-        notes = Note.objects.all()
+            note = Note.objects.get(pk=id)
+            serializer = NoteSerializer(note) 
+            return Response(serializer.data) 
 
-        return Response(notes.values())
+        notes = Note.objects.all() 
+        serializer = NoteSerializer(notes, many=True)
+    
+        return Response(serializer.data) 
 
     def post(self, request):
         title = request.data.get('title')
@@ -48,10 +49,6 @@ class NoteView(APIView):
         if not id:
             return Response({"error": 'Нету id'})
 
-        """
-        Поиск заметки.
-        Метод filter используется потому, что метод update (ниже) работает только по списку объектов.
-        """
         note = Note.objects.filter(pk=id)
         if not note:
             return Response({"error": 'Нету такой заметки'})
@@ -81,8 +78,7 @@ class NoteView(APIView):
 
 
 
-"""@api_view(['GET'])
-def notes_list(request):
-    
+@api_view(['GET'])
+def notes_list(request):    
     pass
-# Create your views here."""
+# Create your views here.
