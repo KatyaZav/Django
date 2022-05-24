@@ -39,3 +39,7 @@ class UserForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+    """def is_valid(self):
+        if (form.username = )
+        return True"""
