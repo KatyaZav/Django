@@ -10,6 +10,9 @@
     <form action="{% url 'register' %}" method='POST'> 
         {% csrf_token %} 
         {{ form.as_p }} 
+        {% if invalid %} 
+            <p>Ошибка! Введены не правильные данные. Возможно такой логин существует!</p> 
+        {% endif %} 
         <input type="submit"> 
     </form> 
     <a href="{% url 'login' %}">Зарегистрирован?</a>

@@ -1,0 +1,11 @@
+div{
+    font-size: 150px;
+    font-weight: bold;
+}
+
+button{
+    background-color: black;
+    color:white;
+    font-weight: bold;
+    font-size: 80px;
+}

@@ -41,5 +41,8 @@ class UserForm(forms.ModelForm):
         return user
 
     """def is_valid(self):
-        if (form.username = )
+        a = UserForm.
+
+        #if (form.username = UserForm.objects.all().username):
+            return False
         return True"""
