@@ -17,4 +17,52 @@ button{
     text-align: center;
     display:block;
     width: 35%;
+
+    background: red;
+}
+
+.nav{
+    background-color: orange;
+    height: auto;
+    vertical-align: middle;
+    padding: 5px;
+    color:#121561;
+    font-size:20px;
+    margin: 0px;
+}
+
+.click_power{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+nav a{
+    color:#121561;
+    float:right;
+    padding-right:5px;
+}
+
+body{
+    margin: 0px;
+}
+
+.boosts{
+    
+    display:flex;    
+    padding: 0px;
+
+    float:right;
+}
+
+.boosts-holder{
+    margin: 0px;
+    padding: 0px;
+}
+
+.boost{
+    margin:0px;
+    display: block;
+    padding: 0px;
+    float:right;
+    width: 400px;
 }

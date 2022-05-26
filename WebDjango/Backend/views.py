@@ -77,7 +77,7 @@ def call_click(request):
 class BoostViewSet(viewsets.ModelViewSet):  
     queryset = Boost.objects.all()  
     serializer_class = BoostSerializer
-
+    
     def get_queryset(self): 
         core = Core.objects.get(user=self.request.user) 
         boosts = Boost.objects.filter(core=core) 
