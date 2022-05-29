@@ -66,3 +66,11 @@ body{
     float:right;
     width: 400px;
 }
+
+.name{
+    font-size: 10px;    
+}
+
+.description{
+    font-size: 10px;
+}

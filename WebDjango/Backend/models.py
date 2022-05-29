@@ -9,7 +9,7 @@ class Core(models.Model):
     coins = models.IntegerField(default=0)
     click_power = models.IntegerField(default=1)
     level = models.IntegerField(default=1) 
-
+    
     def click(self): 
         self.coins += self.click_power
 
@@ -27,8 +27,8 @@ class Boost(models.Model):
     level = models.IntegerField(default=0) 
     price = models.IntegerField(default=10) 
     power = models.IntegerField(default=1)
-    #name = models.TextField()
-    #describtion = models.TextField()
+    name = models.TextField(default='name')
+    describtion = models.TextField(default='description')
 
     def levelup(self):
         if self.price > self.core.coins: 

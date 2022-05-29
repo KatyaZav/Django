@@ -1,0 +1,54 @@
+form input{
+    display:block;
+    padding:10px;
+    margin: 10px;
+    font-size: 20px;
+
+    width: 100%;
+    margin: 0px;
+    margin-bottom: 15px;
+    
+    font-size: 20px;
+    text-align: center;    
+    color:#121561;
+}
+
+body{
+    margin: 0px;
+    background-color: rgb(119, 131, 130);
+}
+
+.contanier{
+    vertical-align: middle;
+    text-align: center;
+    
+    border: 15px solid #121561;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20%;
+    display: inline-block;
+    width: 500px;
+    margin: 300px;
+    margin-top: 100px;
+    padding-bottom:20px;
+}
+
+form{
+    box-sizing: content-box;
+    text-align: center;
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.submit{
+    text-align: center;
+    font-weight: bold;
+}
+
+h1{
+    font-weight: bold;
+    color:#121561;
+}
+
+a{
+    color:#121561;
+}

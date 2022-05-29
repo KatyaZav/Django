@@ -1,8 +1,11 @@
+{% load static %} 
 <html lang="en"> 
 <head> 
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
     <title>Регистрация в лучшем кликере</title> 
 </head> 
 <body>
+    <div class="contanier">
     <h1>Регистрация</h1>
     {% if form.errors %} 
         <p>{{form.errors}}</p> 
@@ -13,8 +16,9 @@
         {% if invalid %} 
             <p>Ошибка! Введены не правильные данные. Возможно такой логин существует!</p> 
         {% endif %} 
-        <input type="submit"> 
+        <input class="submit" type="submit" value="Регистрироваться"> 
     </form> 
     <a href="{% url 'login' %}">Зарегистрирован?</a>
+    </div>
 </body> 
 </html>
