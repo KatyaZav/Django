@@ -1,4 +1,5 @@
 from http.client import HTTPResponse
+from pydoc import describe
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -18,11 +19,11 @@ from .serializers import CoreSerializer, BoostSerializer
 @login_required
 def index(request): 
     core = Core.objects.get(user=request.user) 
-    boosts = Boost.objects.filter(core=core) # Достаем бусты пользователя из базы 
+    boosts = Boost.objects.filter(core=core) 
      
     return render(request, 'index.html', { 
         'core': core, 
-        'boosts': boosts, # Возвращаем бусты на фронтик
+        'boosts': boosts, 
     })
 
 @login_required
@@ -69,7 +70,9 @@ def call_click(request):
     is_levelup = core.click()
 
     if is_levelup: 
-        Boost.objects.create(core=core, price=core.level*50, power=core.level+1)  
+        Boost.objects.create(core=core, price=10, power=1, name="Человек обыкновенный", describtion="Работает, если пинать" )
+        Boost.objects.create(core=core, price=50, power=6, name="Новый телефон", describtion="Вычисляет все на 0.01% быстрее" )
+          
     core.save()
 
     return Response({ 'core': CoreSerializer(core).data, 'is_levelup': is_levelup })   
