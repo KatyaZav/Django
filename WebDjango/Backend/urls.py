@@ -7,6 +7,10 @@ boosts = views.BoostViewSet.as_view({
     'post': 'create', 
 })
 
+lonely_boost = views.BoostViewSet.as_view({
+    'put': 'partial_update', 
+})
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('login/', views.Login.as_view(), name='login'),
@@ -14,4 +18,7 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('call_click/', views.call_click),
     path('boosts/', boosts, name='boosts'), 
+    path('boost/<int:pk>/', lonely_boost, name='boost'),
 ]
+
+
