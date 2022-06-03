@@ -72,7 +72,9 @@ def call_click(request):
     if is_levelup: 
         Boost.objects.create(core=core, price=10, power=1, name="Человек обыкновенный", describtion="Работает, если пинать" )
         Boost.objects.create(core=core, price=50, power=6, name="Новый телефон", describtion="Вычисляет все на 0.01% быстрее" )
-          
+        Boost.objects.create(core=core, price=60, power=1, type=1, name="Холодильник", describtion="Майнить на нем? Ну удачи...")
+        Boost.objects.create(core=core, price=70, power=2, type=1, name="Первая видюха", describtion="Стоит как золото, а пользы 0")
+        Boost.objects.create(core=core, price=200, power=10, type=1, name="Мощный компьютер", describtion="Что-то подходящее для майнинга")
     core.save()
 
     return Response({ 'core': CoreSerializer(core).data, 'is_levelup': is_levelup })   
@@ -87,7 +89,7 @@ class BoostViewSet(viewsets.ModelViewSet):
         boosts = Boost.objects.filter(core=core) 
         return boosts
 
-    def partial_update(self, request, pk):
+    """def partial_update(self, request, pk):
         boost = self.queryset.get(pk=pk)
 
         is_levelup = boost.levelup()
@@ -99,4 +101,39 @@ class BoostViewSet(viewsets.ModelViewSet):
         return Response({
             "old_boost_stats": self.serializer_class(old_boost_stats).data,
             "new_boost_stats": self.serializer_class(new_boost_stats).data,
+        })"""
+
+    def partial_update(self, request, pk):
+        coins = request.data['coins'] # Получаем количество монет из тела запроса.
+        boost = self.queryset.get(pk=pk)
+
+        is_levelup = boost.levelup(coins) # Передадим количество монет в метод. Этот метод мы скоро немного подкорректируем.
+        if not is_levelup:
+            return Response({ "error": "Не хватает денег" })
+        old_boost_stats, new_boost_stats = is_levelup
+
+        return Response({
+            "old_boost_stats": self.serializer_class(old_boost_stats).data,
+            "new_boost_stats": self.serializer_class(new_boost_stats).data,
         })
+    
+@api_view(['POST']) 
+def update_coins(request): 
+    coins = request.data['current_coins'] 
+    core = Core.objects.get(user=request.user)
+   
+    is_levelup, boost_type = core.set_coins(coins) 
+   
+    if is_levelup: 
+        Boost.objects.create(core=core, price=core.coins, power=core.level*2, type=boost_type) # Создание буста. Добавили атрибут type.
+    core.save()
+
+    return Response({
+        'core': CoreSerializer(core).data, 
+        'is_levelup': is_levelup,
+    })
+
+@api_view(['GET'])
+def get_core(request):
+    core = Core.objects.get(user=request.user)
+    return Response({'core': CoreSerializer(core).data})

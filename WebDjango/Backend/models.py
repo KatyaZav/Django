@@ -24,6 +24,10 @@ class Core(models.Model):
     def check_level_price(self):
         return (self.level*2+1) 
 
+    def get_boost_type(self):
+        
+        return
+
 class Boost(models.Model): 
     type = models.PositiveSmallIntegerField(default=0, choices=BOOST_TYPE_CHOICES)
 
@@ -44,10 +48,11 @@ class Boost(models.Model):
         self.core.save()
 
         old_boost_values = copy(self)
+        self.core.coins = current_coins - self.price
 
         self.level += 1
         self.power *= 2
-        self.price *= self.price * BOOST_TYPE_VALUES[self.type]['price_scale'] # Умножаем ценник на константу.
+        self.price = self.price * BOOST_TYPE_VALUES[self.type]['price_scale'] 
         self.save()
 
         return old_boost_values, self

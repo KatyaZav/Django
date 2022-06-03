@@ -17,8 +17,7 @@ button{
     text-align: center;
     display:block;
     width: 35%;
-
-    /*background: red;*/
+    float:left;
 }
 
 .nav{
@@ -48,26 +47,26 @@ body{
 
 .boosts{
     
-    display:flex;   
-
+    display:inline-block;   
+    text-align: center;
     float:right;
+    width: 800px;
+
 }
 
 .boosts-holder{
     margin: 0px;
     padding: 0px;
+    
 }
 
-.boost{
+.boost_0{
     margin:0px;
     display: block;
     padding: 0px;
     float:right;
     width: 400px;
     height: 70%;
-}
-
-.boost{
 }
 
 .lvl{
@@ -110,4 +109,11 @@ margin-right: 10%;
     font-size: 20px;
     position: relative;
     display: inline-block;
+}
+
+.boost_1{
+    background-color: black;
+}
+
+.boost_0{
 }
