@@ -52,7 +52,6 @@ body{
     float:right;
     width: 60%;
     margin-bottom: 0px;
-
 }
 
 .boosts-holder{
@@ -118,8 +117,6 @@ body{
     left:150px;
 }
 
-
-
 .boost_1{
     background-color: rgb(235, 173, 38);    
     border: 2px solid rgb(136, 92, 10);
@@ -150,3 +147,69 @@ button:active{
     background-color: rgb(211, 168, 89);
 }
 
+.container{
+    height: 40%;
+}
+
+aside{
+    height: 100%;
+
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    overflow: hidden;
+}
+
+.achives{
+    float:left;
+    display: block;
+    width: 40%;
+    height: 56%;
+}
+
+
+.achive{
+    width: 90%;
+    height: 20%;
+    margin: 20px;
+    
+    display: block;
+}
+
+.icon{
+    width: 20%;
+    height: 100%;
+    border-radius: 100%;
+    background-color: rgb(250, 253, 59);
+    display: inline-block;
+    border: 1px dashed rgb(214, 151, 33);
+}
+.disc{
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    position: relative;
+    bottom:37%;
+
+    visibility: hidden;
+    font-size: 30px;
+
+    vertical-align: middle;
+    text-align: center;
+    background-color: rgb(226, 221, 154);
+    border-radius: 30%;
+}
+
+.icon:hover+.disc{
+    visibility: visible;
+}
+.power_click1{
+    font-size: 30px;
+    
+    background-color: #121561;
+    color: white;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+
+    border-radius: 30%;
+}

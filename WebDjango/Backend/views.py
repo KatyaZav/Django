@@ -47,7 +47,7 @@ class Register(APIView):
             core.save() 
             Boost.objects.create(core=core, price=10, power=1, name="Человек обыкновенный", describtion="Работает, если пинать" )
             Boost.objects.create(core=core, price=50, power=6, name="Новый телефон", describtion="Вычисляет все на 0.01% быстрее" )
-            Boost.objects.create(core=core, price=60, power=1, type=1, name="Холодильник", describtion="Майнить на нем? Ну удачи...")
+            Boost.objects.create(core=core, price=60, power=1, type=1, name="Стиралка", describtion="Майнить на ней? Ну удачи...")
             Boost.objects.create(core=core, price=70, power=2, type=1, name="Первая видюха", describtion="Стоит как золото, а пользы 0")
             Boost.objects.create(core=core, price=200, power=10, type=1, name="Мощный компьютер", describtion="Что-то подходящее для майнинга")
 
