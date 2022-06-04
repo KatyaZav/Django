@@ -57,17 +57,17 @@ function update_boost(boost) {
 /** Функция для добавления буста на фронтике. */
 function add_boost(parent, boost) {
     const button = document.createElement('button')
-    button.setAttribute('class', `boost_${boost.type}`)
+    button.setAttribute('class', `boost_${boost.type} boostik`)
     button.setAttribute('id', `boost_${boost.id}`)
     button.setAttribute('onclick', `buy_boost(${boost.id})`)
     button.innerHTML = `
-        <p>lvl: <span id="boost_level">${boost.level}</span></p>
-        <p>+<span id="boost_power">${boost.power}</span></p>
+       <p class="lvl">lvl: <span id="boost_level">${boost.level}</span></p>
+        
+        <p class="name"><span id="boost_name">${boost.name}</span></p>
+        <p class="describtion"><span id="boost_describtion">${boost.describtion}</span></p>
+        <p class="power">+<span id="boost_power">${boost.power}</span></p>
 
-        <p><span id="boost_name">${boost.name}</span></p>
-        <p><span id="boost_describtion">${boost.describtion}</span></p>
-
-        <p><span id="boost_price">${boost.price}</span></p>
+        <p class="price"><span id="boost_price">${boost.price}</span></p>
     `
     parent.appendChild(button)
 }
@@ -163,7 +163,6 @@ function buy_boost(boost_id) {
 function setAutoClick() {
     setInterval(function() {
         Game.add_coins(Game.auto_click_power)
-        updateCoins(Game.coins)
     }, 1000)
 }
 

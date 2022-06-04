@@ -15,15 +15,12 @@ class Core(models.Model):
     def click(self): 
         self.coins += self.click_power
 
-        if self.coins == 1:                   
+        if self.coins == 1:               
             return True 
         return False 
      
     def check_level_price(self):
         return (self.level*2+1) 
-
-    def get_boost_type(self):        
-        return 
 
 class Boost(models.Model): 
     type = models.PositiveSmallIntegerField(default=0, choices=BOOST_TYPE_CHOICES)

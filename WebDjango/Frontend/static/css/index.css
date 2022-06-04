@@ -143,9 +143,10 @@ button:active{
 }
 
 .boost_1:hover{
-    background-color: orange;
+    background-color: rgb(255, 150, 51);
 }
 
 .boost_1:active{
     background-color: rgb(211, 168, 89);
 }
+
