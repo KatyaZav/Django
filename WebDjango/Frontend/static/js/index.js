@@ -3,8 +3,7 @@ function GameSession() {
     this.click_power = 1
     this.auto_click_power = 0
     this.next_level_price = 10
-
-   
+ 
     this.init = function() {
         getCore().then(core => {
             this.coins = core.coins
@@ -30,13 +29,12 @@ function GameSession() {
 let Game = new GameSession() 
 
 function call_click() {
-    /**const kakashiNode = document.getElementById('kakashi')
-    click_animation(kakashiNode, 50)*/
     Game.add_coins(Game.click_power)
 }
 
 
-/** Функция для обновления количества монет, невероятной мощи и дружинных кликуш в HTML-элементах. */
+/** Функция для обновления количества монет, 
+ * невероятной мощи и дружинных кликуш в HTML-элементах. */
 function render() {
     const coinsNode = document.getElementById('coins')
     const clickNode = document.getElementById('click_power')
@@ -52,7 +50,10 @@ function update_boost(boost) {
     const boost_node = document.getElementById(`boost_${boost.id}`)
     boost_node.querySelector('#boost_level').innerText = boost.level
     boost_node.querySelector('#boost_power').innerText = boost.power
-    boost_node.querySelector('#boost_price').innerText = boost.price
+    boost_node.querySelector('#boost_price').innerText = boost.price    
+    boost_node.querySelector('#boost_name').innerText = boost.name    
+    boost_node.querySelector('#boost_describtion').innerText = boost.describtion
+    boost_node.querySelector('#boost_type').innerText = boost.type    
 }
 
 /** Функция для добавления буста на фронтике. */
@@ -71,15 +72,6 @@ function add_boost(parent, boost) {
         <p><span id="boost_price">${boost.price}</span></p>
     `
     parent.appendChild(button)
-}
-
-/** Функция для анимации элемента, по которому происходит клик. */
-function click_animation(node, time_ms) {
-    css_time = `.0${time_ms}s`
-    node.style.cssText = `transition: all ${css_time} linear; transform: scale(0.95);`
-    setTimeout(function() {
-        node.style.cssText = `transition: all ${css_time} linear; transform: scale(1);`
-    }, time_ms)
 }
 
 /** Функция получения данных об игре пользователя с бэкенда. */
@@ -172,7 +164,6 @@ function buy_boost(boost_id) {
 /** Функция обработки автоматического клика. */
 function setAutoClick() {
     setInterval(function() {
-        /** Этот код срабатывает раз в секунду. */
         Game.add_coins(Game.auto_click_power)
     }, 1000)
 }
@@ -180,7 +171,6 @@ function setAutoClick() {
 /** Функция обработки автоматического сохранения (отправки данных о количестве монет пользователя на бэкенд). */
 function setAutoSave() {
     setInterval(function() {
-        /** Этот код срабатывает раз в минуту. */
         updateCoins(Game.coins)
     }, 60000)
 }
@@ -189,7 +179,7 @@ function setAutoSave() {
     Функция для получения кукесов.
     Она нужна для того, чтобы получить токен пользователя, который хранится в cookie.
     Токен пользователя, в свою очередь, нужен для того, чтобы система распознала, что запросы защищены.
-    Без него POST и PUT запросы выполняться не будут, потому что так захотел Django.
+    Без него POST и PUT запросы выполняться не будут, потому что так захотел Django.*/
 
 function getCookie(name) {
     let cookieValue = null;
@@ -208,17 +198,13 @@ function getCookie(name) {
 
 /**
 * Эта функция автоматически вызывается сразу после загрузки страницы.
-* В ней мы можем делать что угодно.
+* В ней мы можем делать что угодно.*/
 
 window.onload = function () {
     Game.init() // Инициализация игры.
     setAutoClick() // Инициализация автоклика.
     setAutoSave() // Инициализация автосейва.
 }
-
-
-
-
 
 function getCookie(name) { 
     let cookieValue = null; 
@@ -262,12 +248,6 @@ function buy_boost(boost_id) {
     }).catch(err => console.log(error))
 }
 
-function update_boost(boost) {
-    const boost_node = document.getElementById(`boost_${boost.id}`)
-    boost_node.querySelector('#boost_level').innerText = boost.level
-    boost_node.querySelector('#boost_power').innerText = boost.power
-    boost_node.querySelector('#boost_price').innerText = boost.price
-}
 
 function call_click() {    
     fetch('/call_click/', {
@@ -285,33 +265,4 @@ function call_click() {
     }).catch(error => console.log(error))    
 }
 
-function get_boosts() {
-    fetch('/boosts/', {
-        method: 'GET'
-    }).then(response => {
-        if (response.ok) {
-            return response.json()
-        } 
-        return Promise.reject(response)
-    }).then(boosts => {
-        const panel = document.getElementById('boosts-holder')
-        panel.innerHTML = ''
-        boosts.forEach(boost => {
-            add_boost(panel, boost)
-        })
-    }).catch(error => console.log(error))
-}
 
-
-function add_boost(parent, boost) {
-    const button = document.createElement('button')
-    button.setAttribute('class', `boost_${boost.type}`)
-    button.setAttribute('id', `boost_${boost.id}`)
-    button.setAttribute('onclick', `buy_boost(${boost.id})`)
-    button.innerHTML = `
-        <p>lvl: <span id="boost_level">${boost.level}</span></p>
-        <p>+<span id="boost_power">${boost.power}</span></p>
-        <p><span id="boost_price">${boost.price}</span></p>
-    `
-    parent.appendChild(button)
-}*/

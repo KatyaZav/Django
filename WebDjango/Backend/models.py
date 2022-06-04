@@ -15,9 +15,7 @@ class Core(models.Model):
     def click(self): 
         self.coins += self.click_power
 
-        if self.coins == 1:#self.check_level_price(): 
-            #self.level += 1                       
-    
+        if self.coins == 1:                   
             return True 
         return False 
      

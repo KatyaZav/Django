@@ -27,7 +27,7 @@
             <h3 class="click_power">Бусты</h3>   
             <div class="boosts-holder" id="boosts-holder">   
                 {% for boost in boosts %}   
-                    <button class="boost_{{boost.type}}" id="boost_{{boost.id}}" onclick="buy_boost({{boost.id}})">   
+                    <button class="boost_{{boost.type}} boostik" id="boost_{{boost.id}}" onclick="buy_boost({{boost.id}})">   
                         <p class="lvl">lvl: <span id="boost_level">{{boost.level}}</span></p>   
                         <p class="name"><span id="boost_name">{{boost.name}}</span></p>
                         <p class="describtion"><span id="boost_describtion">{{boost.describtion}}</span></p>                                               

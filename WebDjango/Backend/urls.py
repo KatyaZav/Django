@@ -16,11 +16,13 @@ urlpatterns = [
     path('login/', views.Login.as_view(), name='login'),
     path('register/', views.Register.as_view(), name ='register'),
     path('logout/', views.user_logout, name='logout'),
+    
     path('call_click/', views.call_click),
-    path('boosts/', boosts, name='boosts'), 
-    path('boost/<int:pk>/', lonely_boost, name='boost'),
-    path('update_coins/', views.update_coins),
     path('core/', views.get_core),
+    path('boosts/', boosts, name='boosts'),     
+    path('boost/<int:pk>/', lonely_boost, name='boost'),
+
+    path('update_coins/', views.update_coins),
 ]
 
 

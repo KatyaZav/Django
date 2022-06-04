@@ -16,7 +16,7 @@ button{
     padding-top:20px;
     text-align: center;
     display:block;
-    width: 35%;
+    width: 40%;
     float:left;
 }
 
@@ -33,6 +33,7 @@ button{
 .click_power{
     font-size: 30px;
     font-weight: bold;
+    color:#121561;
 }
 
 nav a{
@@ -46,27 +47,17 @@ body{
 }
 
 .boosts{
-    
     display:inline-block;   
     text-align: center;
     float:right;
-    width: 800px;
+    width: 60%;
+    margin-bottom: 0px;
 
 }
 
 .boosts-holder{
     margin: 0px;
     padding: 0px;
-    
-}
-
-.boost_0{
-    margin:0px;
-    display: block;
-    padding: 0px;
-    float:right;
-    width: 400px;
-    height: 70%;
 }
 
 .lvl{
@@ -74,15 +65,15 @@ body{
     margin-left:10px;
     display: inline-block;
     float: left;
+    font-size:30px;
 }
 
 .power{
 display: inline-block;
-
 position: relative;
-top:-30px;
+top:0px;
 float:left;
-left:10%;
+left:-50px;
 }
 
 .price{
@@ -93,27 +84,61 @@ top:-30px;
 float:right;
 color:orange;
 margin-right: 10%;
+display: inline-block;
+
+background-color: aqua;
+}
+
+.boost_1 .price{
+    color:#121561;
 }
 
 .name{
-    top:5px;
+    top:-20px;
     font-size: 20px;    
     position: relative;
-    right:5px;
+    right:30%;
     display: inline-block;
+    font-size: 30px;
 }
 
 .describtion{
-    top:-10px;
-    right:5px;
+    top:50px;
+    float:left;
+    left:30px;
     font-size: 20px;
     position: relative;
     display: inline-block;
 }
 
 .boost_1{
-    background-color: black;
+    background-color: rgb(235, 173, 38);    
+    border: 2px solid rgb(136, 92, 10);
+
+
 }
 
-.boost_0{
+.boostik{    
+    margin:10px 0;
+    display: block;
+    padding: 0px;
+    float:right;
+    width: 100%;
+    height: 15%;
+}
+
+button:hover{
+    background-color: #1f2396;
+}
+
+button:active{
+    background-color: #4c50c4;
+}
+
+.boost_1:hover{
+    background-color: orange;
+}
+
+.boost_1:active{
+    background-color: rgb(211, 168, 89);
 }
