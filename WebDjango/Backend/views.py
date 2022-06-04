@@ -110,10 +110,14 @@ def update_coins(request):
     coins = request.data['current_coins'] 
     core = Core.objects.get(user=request.user)
    
-    is_levelup, boost_type = core.set_coins(coins) 
-   
+    is_levelup = core.click()
+
     if is_levelup: 
-        Boost.objects.create(core=core, price=core.coins, power=core.level*2, type=boost_type) # Создание буста. Добавили атрибут type.
+        Boost.objects.create(core=core, price=10, power=1, name="Человек обыкновенный", describtion="Работает, если пинать" )
+        Boost.objects.create(core=core, price=50, power=6, name="Новый телефон", describtion="Вычисляет все на 0.01% быстрее" )
+        Boost.objects.create(core=core, price=60, power=1, type=1, name="Холодильник", describtion="Майнить на нем? Ну удачи...")
+        Boost.objects.create(core=core, price=70, power=2, type=1, name="Первая видюха", describtion="Стоит как золото, а пользы 0")
+        Boost.objects.create(core=core, price=200, power=10, type=1, name="Мощный компьютер", describtion="Что-то подходящее для майнинга")
     core.save()
 
     return Response({

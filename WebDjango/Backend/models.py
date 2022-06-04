@@ -22,9 +22,8 @@ class Core(models.Model):
     def check_level_price(self):
         return (self.level*2+1) 
 
-    def get_boost_type(self):
-        
-        return
+    def get_boost_type(self):        
+        return 
 
 class Boost(models.Model): 
     type = models.PositiveSmallIntegerField(default=0, choices=BOOST_TYPE_CHOICES)
@@ -36,7 +35,7 @@ class Boost(models.Model):
     name = models.TextField(default='name')
     describtion = models.TextField(default='description')
 
-    def levelup(self):
+    def levelup(self, current_coins):
         if self.price > self.core.coins: 
             return False
 

@@ -13,7 +13,8 @@ function GameSession() {
         })
     }
     this.add_coins = function(coins) {
-        this.coins += coins
+        this.coins += coins      
+        updateCoins(this.coins)
         render()
     }
     this.add_power = function(power) {
@@ -29,7 +30,7 @@ function GameSession() {
 let Game = new GameSession() 
 
 function call_click() {
-    Game.add_coins(Game.click_power)
+    Game.add_coins(Game.click_power)    
 }
 
 
@@ -51,9 +52,6 @@ function update_boost(boost) {
     boost_node.querySelector('#boost_level').innerText = boost.level
     boost_node.querySelector('#boost_power').innerText = boost.power
     boost_node.querySelector('#boost_price').innerText = boost.price    
-    boost_node.querySelector('#boost_name').innerText = boost.name    
-    boost_node.querySelector('#boost_describtion').innerText = boost.describtion
-    boost_node.querySelector('#boost_type').innerText = boost.type    
 }
 
 /** Функция для добавления буста на фронтике. */
@@ -165,6 +163,7 @@ function buy_boost(boost_id) {
 function setAutoClick() {
     setInterval(function() {
         Game.add_coins(Game.auto_click_power)
+        updateCoins(Game.coins)
     }, 1000)
 }
 
@@ -174,12 +173,6 @@ function setAutoSave() {
         updateCoins(Game.coins)
     }, 60000)
 }
-
-/**
-    Функция для получения кукесов.
-    Она нужна для того, чтобы получить токен пользователя, который хранится в cookie.
-    Токен пользователя, в свою очередь, нужен для того, чтобы система распознала, что запросы защищены.
-    Без него POST и PUT запросы выполняться не будут, потому что так захотел Django.*/
 
 function getCookie(name) {
     let cookieValue = null;
@@ -196,60 +189,13 @@ function getCookie(name) {
     return cookieValue;
 }
 
-/**
-* Эта функция автоматически вызывается сразу после загрузки страницы.
-* В ней мы можем делать что угодно.*/
-
 window.onload = function () {
     Game.init() // Инициализация игры.
     setAutoClick() // Инициализация автоклика.
     setAutoSave() // Инициализация автосейва.
 }
 
-function getCookie(name) { 
-    let cookieValue = null; 
-    if (document.cookie && document.cookie !== '') { 
-        const cookies = document.cookie.split(';'); 
-        for (let i = 0; i < cookies.length; i++) { 
-            const cookie = cookies[i].trim(); 
-            if (cookie.substring(0, name.length + 1) === (name + '=')) { 
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1)); 
-                break; 
-            } 
-        } 
-    } 
-    return cookieValue; 
-}
-
-function buy_boost(boost_id) {
-    const csrftoken = getCookie('csrftoken')
-    fetch(`/boost/${boost_id}/`, {
-        method: 'PUT',
-        headers: { 
-            "X-CSRFToken": csrftoken, 
-            'Content-Type': 'application/json'
-        }
-    }).then(response => {
-        if (response.ok) return response.json()
-        else return Promise.reject(response)
-    }).then(response => {
-        if (response.error) return
-        const old_boost_stats = response.old_boost_stats
-        const new_boost_stats = response.new_boost_stats
-       
-        const coinsElement = document.getElementById('coins')
-        coinsElement.innerText = Number(coinsElement.innerText) - old_boost_stats.price
-        const powerElement = document.getElementById('click_power')
-        powerElement.innerText = Number(powerElement.innerText) + old_boost_stats.power
-
-
-
-        update_boost(new_boost_stats) 
-    }).catch(err => console.log(error))
-}
-
-
-function call_click() {    
+/**function call_click() {    
     fetch('/call_click/', {
         method: 'GET'
     }).then(response => {
@@ -264,5 +210,5 @@ function call_click() {
         }
     }).catch(error => console.log(error))    
 }
-
+*/
 
