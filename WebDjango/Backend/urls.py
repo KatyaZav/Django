@@ -11,6 +11,15 @@ lonely_boost = views.BoostViewSet.as_view({
     'put': 'partial_update', 
 })
 
+achives = views.AchiveViewSet.as_view({   
+    'get': 'list',  
+    'post': 'create', 
+})
+
+lonely_achive = views.AchiveViewSet.as_view({
+    'put': 'partial_update', 
+})
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('login/', views.Login.as_view(), name='login'),
@@ -23,6 +32,8 @@ urlpatterns = [
     path('boost/<int:pk>/', lonely_boost, name='boost'),
 
     path('update_coins/', views.update_coins),
+    path('achives/', achives, name='achives'),     
+    path('achives/<int:pk>/', lonely_achive, name='achives'),
 ]
 
 

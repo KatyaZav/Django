@@ -26,13 +26,14 @@ function GameSession() {
         render()
     }
 }
-
+j = true
 let Game = new GameSession() 
 
 function call_click() {
-    Game.add_coins(Game.click_power)    
+    get_achives()
+    Game.add_coins(Game.click_power)  
+   
 }
-
 
 /** Функция для обновления количества монет, 
  * невероятной мощи и дружинных кликуш в HTML-элементах. */
@@ -89,6 +90,7 @@ function getCore() {
 /** Функция отправки данных о количестве монет пользователя на бэкенд. */
 function updateCoins(current_coins) {
     const csrftoken = getCookie('csrftoken')
+    
     return fetch('/update_coins/', {
         method: 'POST',
         headers: {
@@ -105,7 +107,7 @@ function updateCoins(current_coins) {
         return Promise.reject(response)
     }).then(response => {
         if (response.is_levelup) {
-            get_boosts()
+            get_boosts()           
         }
         return response.core
     }).catch(error => console.log(error))
@@ -127,6 +129,33 @@ function get_boosts() {
             add_boost(panel, boost)
         })
     }).catch(error => console.log(error))
+}
+
+function get_achives() {
+    return fetch('/achives/', {
+        method: 'GET'
+    }).then(response => {
+        if (response.ok) {
+            return response.json()
+        }
+        return Promise.reject(response)
+    }).then(boosts => {
+        const panel = document.getElementById('achives')
+       
+        boosts.forEach(achive => {
+            add_achive(panel, achive)
+        })
+    }).catch(error => console.log(error))
+}
+
+function add_achive(parent, achive) {
+    const button = document.createElement('div')
+    button.setAttribute('class', `achive first-col`)
+    button.innerHTML = `
+        <img src=${achive.img} class="icon">
+        <div class="disc">${achive.describtion}</div>
+    `
+    parent.appendChild(button)
 }
 
 /** Функция покупки буста. */
@@ -193,21 +222,3 @@ window.onload = function () {
     setAutoClick() // Инициализация автоклика.
     setAutoSave() // Инициализация автосейва.
 }
-
-/**function call_click() {    
-    fetch('/call_click/', {
-        method: 'GET'
-    }).then(response => {
-        if (response.ok) {
-            return response.json()
-        }
-        return Promise.reject(response)
-    }).then(data => {
-        document.getElementById('coins').innerText = data.core.coins
-        if (data.is_levelup) {
-            get_boosts()
-        }
-    }).catch(error => console.log(error))    
-}
-*/
-

@@ -1,3 +1,4 @@
+from email.policy import default
 from pydoc import describe
 from pyexpat import model
 from django.db import models
@@ -51,3 +52,8 @@ class Boost(models.Model):
 
         return old_boost_values, self
   
+
+class Achive(models.Model):
+    core = models.ForeignKey(Core, null=False, on_delete=models.CASCADE) 
+    img = models.TextField(default="")
+    describtion = models.TextField(default="")

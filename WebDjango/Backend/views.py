@@ -3,9 +3,10 @@ from pydoc import describe
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+
 from .forms import UserForm
 from django.shortcuts import redirect
-from .models import Boost, Core
+from .models import Boost, Core, Achive
 
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
@@ -14,7 +15,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from django.http import HttpResponse
-from .serializers import CoreSerializer, BoostSerializer
+from .serializers import CoreSerializer, BoostSerializer, AchiveSerializer
 
 @login_required
 def index(request): 
@@ -107,6 +108,30 @@ class BoostViewSet(viewsets.ModelViewSet):
             "new_boost_stats": self.serializer_class(new_boost_stats).data,
         })
 
+class AchiveViewSet(viewsets.ModelViewSet):  
+    queryset = Achive.objects.all()  
+    serializer_class = AchiveSerializer
+    
+    def get_queryset(self): 
+        core = Core.objects.get(user=self.request.user) 
+        boosts = Achive.objects.filter(core=core) 
+        return boosts
+
+    def partial_update(self, request, pk):
+        coins = request.data['coins'] # Получаем количество монет из тела запроса.
+        boost = self.queryset.get(pk=pk)
+
+        is_levelup = boost.levelup(coins) # Передадим количество монет в метод. Этот метод мы скоро немного подкорректируем.
+        if not is_levelup:
+            return Response({ "error": "Не хватает денег" })
+        old_boost_stats, new_boost_stats = is_levelup
+
+        return Response({
+            "old_boost_stats": self.serializer_class(old_boost_stats).data,
+            "new_boost_stats": self.serializer_class(new_boost_stats).data,
+        })
+
+
 @api_view(['POST']) 
 def update_coins(request): 
     coins = request.data['current_coins'] 
@@ -114,6 +139,14 @@ def update_coins(request):
    
     is_levelup = core.click()
 
+    if (coins>=10000 ):
+        is_get=False
+        Achive.objects.create(core=core, img='../static/img/card.png', describtion="Накоплено 10т")
+    
+    
+    if (Boost.objects.filter(core=core).get(id=200).level == 1):
+        is_get2=False
+        Achive.objects.create(core=core, img='../static/img/man.png', describtion="Нанять работника")
     #if is_levelup: 
     core.save()
 

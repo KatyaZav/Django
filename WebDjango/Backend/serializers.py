@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Core, Boost
+from .models import Achive, Core, Boost
 
 class CoreSerializer(ModelSerializer):
     class Meta:
@@ -9,4 +9,9 @@ class CoreSerializer(ModelSerializer):
 class BoostSerializer(ModelSerializer): 
     class Meta: 
         model = Boost 
+        fields = '__all__'
+
+class AchiveSerializer(ModelSerializer): 
+    class Meta: 
+        model = Achive 
         fields = '__all__'
