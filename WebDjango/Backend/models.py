@@ -4,6 +4,7 @@ from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
 from copy import copy
+
 from .constants import *
 
 class Core(models.Model):
@@ -12,6 +13,8 @@ class Core(models.Model):
     click_power = models.IntegerField(default=1)
     level = models.IntegerField(default=1)    
     auto_click_power = models.IntegerField(default=0) 
+
+    achiveCount = models.IntegerField(default=0)
     
     def click(self): 
         self.coins += self.click_power
@@ -23,6 +26,13 @@ class Core(models.Model):
     def check_level_price(self):
         return (self.level*2+1) 
 
+    def is_New_Achive(self):
+        if (self.achiveCount>0):
+            self.achiveCount-=1
+            self.save
+            return True
+        return False
+
 class Boost(models.Model): 
     type = models.PositiveSmallIntegerField(default=0, choices=BOOST_TYPE_CHOICES)
 
@@ -32,6 +42,8 @@ class Boost(models.Model):
     power = models.IntegerField(default=1)
     name = models.TextField(default='name')
     describtion = models.TextField(default='description')
+    achiveGet = models.BooleanField(default=False)
+    
 
     def levelup(self, current_coins):
         if self.price > self.core.coins: 
@@ -51,6 +63,15 @@ class Boost(models.Model):
         self.save()
 
         return old_boost_values, self
+    
+    def SetTrue(self):
+        self.achiveGet = True
+        self.core.achiveCount+=1
+        
+        self.core.save()
+        self.save()
+
+    
   
 
 class Achive(models.Model):

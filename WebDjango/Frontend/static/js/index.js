@@ -30,9 +30,8 @@ j = true
 let Game = new GameSession() 
 
 function call_click() {
-    get_achives()
     Game.add_coins(Game.click_power)  
-   
+    get_achives()
 }
 
 /** Функция для обновления количества монет, 
@@ -108,6 +107,11 @@ function updateCoins(current_coins) {
     }).then(response => {
         if (response.is_levelup) {
             get_boosts()           
+        }
+        return response.core
+    }).then(response => {
+        if (response.is_New_Achive){
+            get_achives()
         }
         return response.core
     }).catch(error => console.log(error))

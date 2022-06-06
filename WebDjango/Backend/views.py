@@ -48,7 +48,7 @@ class Register(APIView):
             core.save() 
             Boost.objects.create(core=core, price=10, power=1, name="Человек обыкновенный", describtion="Работает, если пинать" )
             Boost.objects.create(core=core, price=50, power=6, name="Новый телефон", describtion="Вычисляет все на 0.01% быстрее" )
-            Boost.objects.create(core=core, price=60, power=1, type=1, name="Стиралка", describtion="Майнить на ней? Ну удачи...")
+            Boost.objects.create(core=core, price=60, power=1, type=1, name="Стиральная машинка", describtion="Майнить на ней? Ну удачи...")
             Boost.objects.create(core=core, price=70, power=2, type=1, name="Первая видюха", describtion="Стоит как золото, а пользы 0")
             Boost.objects.create(core=core, price=200, power=10, type=1, name="Мощный компьютер", describtion="Что-то подходящее для майнинга")
 
@@ -139,15 +139,27 @@ def update_coins(request):
    
     is_levelup = core.click()
 
-    if (coins>=10000 ):
-        is_get=False
+    if (coins>=10000 and 
+    (not Boost.objects.filter(core=core).get(name="Новый телефон").achiveGet)):
+        Boost.objects.filter(core=core).get(name="Новый телефон").SetTrue()
         Achive.objects.create(core=core, img='../static/img/card.png', describtion="Накоплено 10т")
     
     
-    if (Boost.objects.filter(core=core).get(id=200).level == 1):
-        is_get2=False
+    if (Boost.objects.filter(core=core).get(name="Человек обыкновенный").level == 1 and
+     (not Boost.objects.filter(core=core).get(name="Человек обыкновенный").achiveGet)):
+        Boost.objects.filter(core=core).get(name="Человек обыкновенный").SetTrue()
         Achive.objects.create(core=core, img='../static/img/man.png', describtion="Нанять работника")
-    #if is_levelup: 
+
+    if (Boost.objects.filter(core=core).get(name="Стиральная машинка").level == 1
+    and (not Boost.objects.filter(core=core).get(name="Стиральная машинка").achiveGet)):
+        Boost.objects.filter(core=core).get(name="Стиральная машинка").SetTrue()
+        Achive.objects.create(core=core, img='../static/img/washer.png', describtion="Ты серьезно купил стиралку?")
+
+    if (Boost.objects.filter(core=core).get(name="Мощный компьютер").level == 1
+    and (not Boost.objects.filter(core=core).get(name="Мощный компьютер").achiveGet)):
+        Boost.objects.filter(core=core).get(name="Мощный компьютер").SetTrue()
+        Achive.objects.create(core=core, img='../static/img/comp.png', describtion="Компуктер")
+
     core.save()
 
     return Response({
