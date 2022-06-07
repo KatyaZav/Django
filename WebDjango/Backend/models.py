@@ -58,8 +58,8 @@ class Boost(models.Model):
         self.core.coins = current_coins - self.price
 
         self.level += 1
-        self.power *= 2
-        self.price = self.price * BOOST_TYPE_VALUES[self.type]['price_scale'] 
+        self.power = (self.power+1)*1.4 - (self.power-1)*0.2
+        self.price = self.price * BOOST_TYPE_VALUES[self.type]['price_scale'] - (self.price-10)*0.2
         self.save()
 
         return old_boost_values, self
