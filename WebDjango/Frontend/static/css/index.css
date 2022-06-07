@@ -165,8 +165,9 @@ aside{
     float:left;
     display: block;
     width: 40%;
-    height: 56%;    
+    height: 60%;    
 
+    padding-bottom:5px;
     margin-top:0px;
 }
 
