@@ -114,14 +114,14 @@ class AchiveViewSet(viewsets.ModelViewSet):
     
     def get_queryset(self): 
         core = Core.objects.get(user=self.request.user) 
-        boosts = Achive.objects.filter(core=core) 
-        return boosts
+        achives = Achive.objects.filter(core=core) 
+        return achives
 
-    def partial_update(self, request, pk):
+    """def partial_update(self, request, pk):
         coins = request.data['coins'] # Получаем количество монет из тела запроса.
-        boost = self.queryset.get(pk=pk)
+        achive = self.queryset.get(pk=pk)
 
-        is_levelup = boost.levelup(coins) # Передадим количество монет в метод. Этот метод мы скоро немного подкорректируем.
+        is_levelup = achive.levelup(coins) # Передадим количество монет в метод. Этот метод мы скоро немного подкорректируем.
         if not is_levelup:
             return Response({ "error": "Не хватает денег" })
         old_boost_stats, new_boost_stats = is_levelup
@@ -129,7 +129,7 @@ class AchiveViewSet(viewsets.ModelViewSet):
         return Response({
             "old_boost_stats": self.serializer_class(old_boost_stats).data,
             "new_boost_stats": self.serializer_class(new_boost_stats).data,
-        })
+        })"""
 
 
 @api_view(['POST']) 

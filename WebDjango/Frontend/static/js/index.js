@@ -14,6 +14,7 @@ function GameSession() {
     }
     this.add_coins = function(coins) {
         this.coins += coins      
+        get_achives()
         updateCoins(this.coins)
         render()
     }
@@ -31,7 +32,6 @@ let Game = new GameSession()
 
 function call_click() {
     Game.add_coins(Game.click_power)  
-    get_achives()
 }
 
 /** Функция для обновления количества монет, 
@@ -54,23 +54,6 @@ function update_boost(boost) {
     boost_node.querySelector('#boost_price').innerText = boost.price    
 }
 
-/** Функция для добавления буста на фронтике. */
-function add_boost(parent, boost) {
-    const button = document.createElement('button')
-    button.setAttribute('class', `boost_${boost.type} boostik`)
-    button.setAttribute('id', `boost_${boost.id}`)
-    button.setAttribute('onclick', `buy_boost(${boost.id})`)
-    button.innerHTML = `
-       <p class="lvl">lvl: <span id="boost_level">${boost.level}</span></p>
-        
-        <p class="name"><span id="boost_name">${boost.name}</span></p>
-        <p class="describtion"><span id="boost_describtion">${boost.describtion}</span></p>
-        <p class="power">+<span id="boost_power">${boost.power}</span></p>
-
-        <p class="price"><span id="boost_price">${boost.price}</span></p>
-    `
-    parent.appendChild(button)
-}
 
 /** Функция получения данных об игре пользователя с бэкенда. */
 function getCore() {
@@ -105,11 +88,6 @@ function updateCoins(current_coins) {
         }
         return Promise.reject(response)
     }).then(response => {
-        if (response.is_levelup) {
-            get_boosts()           
-        }
-        return response.core
-    }).then(response => {
         if (response.is_New_Achive){
             get_achives()
         }
@@ -143,10 +121,10 @@ function get_achives() {
             return response.json()
         }
         return Promise.reject(response)
-    }).then(boosts => {
-        const panel = document.getElementById('achives')
-       
-        boosts.forEach(achive => {
+    }).then(achives => {
+        const panel = document.getElementById('achives-holder')
+        panel.innerHTML = ''
+        achives.forEach(achive => {
             add_achive(panel, achive)
         })
     }).catch(error => console.log(error))

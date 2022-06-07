@@ -18,6 +18,8 @@ button{
     display:block;
     width: 40%;
     float:left;
+
+    padding-bottom: 0px;
 }
 
 .nav{
@@ -148,7 +150,7 @@ button:active{
 }
 
 .container{
-    height: 40%;
+    height: 35%;
 }
 
 aside{
@@ -163,7 +165,9 @@ aside{
     float:left;
     display: block;
     width: 40%;
-    height: 56%;
+    height: 56%;    
+
+    margin-top:0px;
 }
 
 

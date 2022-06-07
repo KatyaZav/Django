@@ -39,9 +39,17 @@
             </div>   
         </aside>
 
-        <div class="achives" id="achives">
+        <aside class="achives" id="achives">
             <div class="power_click1">Ачивки</div>
-        </div>
+            <div class="achives-holder" id="achives-holder">
+                {% for achive in achives %}
+                <div class = "achive first-col">
+                    <img src={{achive.img}} class="icon">
+                    <div class="disc">{{achive.describtion}}</div>
+                </div>
+                {% endfor %} 
+            </div>
+        </aside>
     </main> 
 </body>  
 </html>

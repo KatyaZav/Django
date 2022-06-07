@@ -33,7 +33,7 @@ urlpatterns = [
 
     path('update_coins/', views.update_coins),
     path('achives/', achives, name='achives'),     
-    path('achives/<int:pk>/', lonely_achive, name='achives'),
+    #path('achives/<int:pk>/', lonely_achive, name='achives'),
 ]
 
 
